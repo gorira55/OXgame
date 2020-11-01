@@ -9,14 +9,16 @@ class Game < Hasu::Window
 
   def initialize
     super 600, 600
-    self.caption = "Tic Tac Toe"
+    self.caption = "改造⭕️❌ゲーム"
+    
   end
 
   def reset
     @state = :new_game
     @board = Board.new(width, height)
     @cursor = Gosu::Image.new('cursor.png',tileable=false)
-    @current_letter = "X"
+    @current_letter = "O"
+    
   end
 
   def update
@@ -24,6 +26,7 @@ class Game < Hasu::Window
 
   def button_down(id)
     case id
+    #　escキーが押された処理
     when Gosu::KbEscape
       close
     when Gosu::MsLeft
@@ -64,8 +67,8 @@ class Game < Hasu::Window
 
   def swap_letter
     @current_letter = case @current_letter
-      when "X" then "O"
-      else "X"
+      when "O" then "X"
+      else "O"
     end
   end
 
@@ -78,20 +81,23 @@ class Game < Hasu::Window
 
     case @state
     when :new_game
-      font = Gosu::Font.new(25)
-      font.draw_text_rel("Click to start a new game", width/2, height/2, 0, 0.5, 0.5, 1, 1,  Gosu::Color::RED)
+      font = Gosu::Font.new(50)
+      font.draw_text_rel("クリックすると始まるよ！！", width/2, height/2, 0, 0.5, 0.5, 1, 1,  Gosu::Color::RED)
     when :winner
-      font = Gosu::Font.new(40)
-      font.draw_text_rel("#{@winner} is the WINNER!!!!!", width / 2, height / 2, 0, 0.5, 0.5, 1, 1, Gosu::Color::GREEN)
+      font = Gosu::Font.new(50)
+      font.draw_text_rel("#{@winner}の勝ちだぜっ！！", width / 2, height / 2, 0, 0.5, 0.5, 1, 1, Gosu::Color::GREEN)
+    #引き分け
     when :cats_game
-      font = Gosu::Font.new(40)
-      font.draw_text_rel("CAT'S GAME :(", width / 2, height / 2, 0, 0.5, 0.5, 1, 1, Gosu::Color::BLUE)
+      font = Gosu::Font.new(50)
+      font.draw_text_rel("引き分けだぜ〜", width / 2, height / 2, 2, 0.5, 0.5, 1, 1, Gosu::Color::BLUE)
+      background = Gosu::Image.new("haikei.jpg", false)
+      background.draw(0, 0, 1)
     when :playing
     end
   end
 
   def draw_overlay
-    Gosu.draw_rect 0, 0, width, height, Gosu::Color.argb(0xdd_ffffff)
+    Gosu.draw_rect 0, 0, width, height, Gosu::Color.argb(0xdd_666666)
   end
 
 end

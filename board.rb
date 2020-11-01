@@ -2,6 +2,7 @@ class Board
   attr_reader :margin
 
   WIN_CONDITIONS ||= [
+    #rowが行、columnが列
     [ [0,0], [1,0], [2,0] ], # top row
     [ [0,1], [1,1], [2,1] ], # middle row
     [ [0,2], [1,2], [2,2] ], # bottom row
@@ -37,6 +38,7 @@ class Board
   end
 
   def check_win?
+    #selectメソッドは条件式に一致した要素を取得
     winning_squares = WIN_CONDITIONS.select {|wc|
       squares = wc.map {|coords| square_at(*coords)}
       letters = squares.map(&:letter)
